@@ -3,6 +3,7 @@
 #include <string>
 #include <cstdlib> // Untuk fungsi rand()
 #include <ctime> // Untuk fungsi time()
+#include <limits> // Untuk numeric_limits
 using namespace std;
 
 // Node untuk anggota
