@@ -145,6 +145,49 @@ void tambahIuran(AnggotaNode*& head) {
     cout << "Nama anggota '" << nama << "' tidak ditemukan dalam daftar.\n";
 }
 
+void deleteAnggota(AnggotaNode*& head) {
+    string nama;
+    cout << "Masukkan nama anggota yang ingin dihapus: ";
+    cin.ignore();
+    getline(cin, nama);
+
+    AnggotaNode* temp = head;
+    AnggotaNode* prev = nullptr;
+
+    while (temp) {
+        if (temp->nama == nama) {
+            if (prev) {
+                prev->next = temp->next; // Menghubungkan node sebelumnya ke node berikutnya
+            } else {
+                head = temp->next; // Jika anggota yang dihapus adalah anggota pertama
+            }
+            delete temp; // Hapus node anggota
+            cout << "Anggota '" << nama << "' berhasil dihapus.\n";
+            return;
+        }
+        prev = temp;
+        temp = temp->next;
+    }
+    cout << "Anggota dengan nama '" << nama << "' tidak ditemukan.\n";
+}
+
+// Fungsi untuk membebaskan memori yang dialokasikan
+
+// Fungsi untuk meminta input integer dengan error handling
+int getInputInteger() {
+    int input;
+    while (true) {
+        cin >> input;
+        if (cin.fail()) {
+            cin.clear(); // Menghapus flag kesalahan
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan input yang tidak valid
+            cout << "Input tidak valid. Harap masukkan angka bulat: ";
+        } else {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan sisa input
+            return input; // Kembalikan input yang valid
+        }
+    }
+}
 
 // Fungsi utama
 int main() {
