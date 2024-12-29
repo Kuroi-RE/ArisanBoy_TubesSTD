@@ -5,6 +5,26 @@
 #include <ctime> // Untuk fungsi time()
 using namespace std;
 
+// Node untuk anggota
+struct AnggotaNode {
+    string nama;
+    string alamat;
+    double jumlahIuran; 
+    bool sudahIuran;
+    AnggotaNode* next;
+};
+
+// Fungsi untuk membuat node anggota baru
+AnggotaNode* createAnggota(string nama, string alamat) {
+    AnggotaNode* newAnggota = new AnggotaNode;
+    newAnggota->nama = nama;
+    newAnggota->alamat = alamat;
+    newAnggota->jumlahIuran = 0.0; // Inisialisasi jumlah iuran
+    newAnggota->sudahIuran = false; // Belum ada iuran
+    newAnggota->next = nullptr;
+    return newAnggota;
+}
+
 int countAnggota(AnggotaNode* head) {
     int count = 0;
     AnggotaNode* temp = head;
