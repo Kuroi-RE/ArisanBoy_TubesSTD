@@ -1,5 +1,9 @@
 // ARISAN BOY 1.0
 #include <iostream>
+#include <string>
+#include <cstdlib> // Untuk fungsi rand()
+#include <ctime> // Untuk fungsi time()
+using namespace std;
 
 int countAnggota(AnggotaNode* head) {
     int count = 0;
@@ -40,6 +44,48 @@ void pilihPemenang(AnggotaNode*& head) {
     delete temp; // Hapus node pemenang
 }
 
+// Fungsi untuk melihat semua data anggota
+void viewData(AnggotaNode* head) {
+    if (!head) {
+        cout << "Tidak ada anggota dalam sistem.\n";
+        return;
+    }
+    AnggotaNode* temp = head;
+    while (temp) {
+        cout << "Nama: " << temp->nama << "\nAlamat: " << temp->alamat << "\nIuran:\n";
+        if (temp->sudahIuran) {
+            cout << "  Jumlah: " << temp->jumlahIuran << "\n";
+        } else {
+            cout << "  Belum ada iuran.\n";
+        }
+        cout << "-----------------------------\n";
+        temp = temp->next;
+    }
+}
+
+
+// Fungsi untuk mencari anggota berdasarkan nama dan menampilkan informasinya
+void findAnggota(AnggotaNode* head) {
+    string nama;
+    cout << "Masukkan nama anggota yang dicari: ";
+    cin.ignore();
+    getline(cin, nama);
+
+    AnggotaNode* temp = head;
+    while (temp) {
+        if (temp->nama == nama) {
+            cout << "Nama: " << temp->nama << "\nAlamat: " << temp->alamat << "\nIuran:\n";
+            if (temp->sudahIuran) {
+                cout << "  Jumlah: " << temp->jumlahIuran << "\n";
+            } else {
+                cout << "  Belum ada iuran.\n";
+            }
+            return; // Anggota ditemukan, keluar dari fungsi
+        }
+        temp = temp->next;
+    }
+    cout << "Anggota dengan nama '" << nama << "' tidak ditemukan.\n";
+}
 
 void insertAnggota(AnggotaNode*& head, string nama, string alamat) {
     AnggotaNode* newAnggota = createAnggota(nama, alamat);
