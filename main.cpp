@@ -89,7 +89,6 @@ void viewData(AnggotaNode* head) {
 void findAnggota(AnggotaNode* head) {
     string nama;
     cout << "Masukkan nama anggota yang dicari: ";
-    cin.ignore();
     getline(cin, nama);
 
     AnggotaNode* temp = head;
@@ -127,7 +126,6 @@ void tambahIuran(AnggotaNode*& head) {
     string nama;
 
     cout << "Masukkan nama anggota: ";
-    cin.ignore();
     getline(cin, nama);
 
     // Cek apakah nama anggota ada
@@ -169,7 +167,6 @@ void tambahIuran(AnggotaNode*& head) {
 void deleteAnggota(AnggotaNode*& head) {
     string nama;
     cout << "Masukkan nama anggota yang ingin dihapus: ";
-    cin.ignore();
     getline(cin, nama);
 
     AnggotaNode* temp = head;
@@ -229,7 +226,6 @@ int main() {
         if (pilihan == 1) {
             string nama, alamat;
             cout << "Masukkan nama: ";
-            cin.ignore();
             getline(cin, nama);
             cout << "Masukkan alamat: ";
             getline(cin, alamat);
