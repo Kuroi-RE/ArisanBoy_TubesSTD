@@ -224,6 +224,17 @@ int main() {
             string nama, alamat;
             cout << "Masukkan nama: ";
             getline(cin, nama);
+            bool validNama = true;
+            for (char c : nama) {
+            if (!isalpha(c) && c != ' ') {
+                validNama = false;
+                break;
+            }
+            }
+            if (nama.empty() || !validNama) {
+            cout << "Nama tidak boleh kosong dan hanya boleh mengandung huruf alphabet. Coba lagi.\n";
+            continue;
+            }
             cout << "Masukkan alamat: ";
             getline(cin, alamat);
             insertAnggota(head, nama, alamat);
