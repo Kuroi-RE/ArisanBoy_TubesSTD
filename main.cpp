@@ -1,12 +1,12 @@
 // ARISAN BOY 1.0
 #include <iostream>
 #include <string>
-#include <cstdlib> // Untuk fungsi rand()
-#include <ctime> // Untuk fungsi time()
-#include <limits> // Untuk numeric_limits
+#include <cstdlib>
+#include <ctime> 
+#include <limits> 
 using namespace std;
 
-// Node untuk anggota
+
 struct AnggotaNode {
     string nama;
     string alamat;
@@ -15,13 +15,13 @@ struct AnggotaNode {
     AnggotaNode* next;
 };
 
-// Fungsi untuk membuat node anggota baru
+
 AnggotaNode* createAnggota(string nama, string alamat) {
     AnggotaNode* newAnggota = new AnggotaNode;
     newAnggota->nama = nama;
     newAnggota->alamat = alamat;
-    newAnggota->jumlahIuran = 0.0; // Inisialisasi jumlah iuran
-    newAnggota->sudahIuran = false; // Belum ada iuran
+    newAnggota->jumlahIuran = 0.0; 
+    newAnggota->sudahIuran = false; 
     newAnggota->next = nullptr;
     return newAnggota;
 }
@@ -36,7 +36,7 @@ int countAnggota(AnggotaNode* head) {
     return count;
 }
 
-// Fungsi untuk memilih pemenang secara acak
+
 void pilihPemenang(AnggotaNode*& head) {
     int totalAnggota = countAnggota(head);
     if (totalAnggota == 0) {
@@ -56,16 +56,16 @@ void pilihPemenang(AnggotaNode*& head) {
 
     cout << "Pemenang arisan adalah: " << temp->nama << " (" << temp->alamat << ")\n";
 
-    // Hapus pemenang dari daftar anggota
+   
     if (prev) {
-        prev->next = temp->next; // Menghubungkan node sebelumnya ke node berikutnya
+        prev->next = temp->next; 
     } else {
-        head = temp->next; // Jika pemenang adalah anggota pertama
+        head = temp->next; 
     }
-    delete temp; // Hapus node pemenang
+    delete temp; 
 }
 
-// Fungsi untuk melihat semua data anggota
+
 void viewData(AnggotaNode* head) {
     if (!head) {
         cout << "Tidak ada anggota dalam sistem.\n";
@@ -85,7 +85,7 @@ void viewData(AnggotaNode* head) {
 }
 
 
-// Fungsi untuk mencari anggota berdasarkan nama dan menampilkan informasinya
+
 void findAnggota(AnggotaNode* head) {
     string nama;
     cout << "Masukkan nama anggota yang dicari: ";
@@ -100,7 +100,7 @@ void findAnggota(AnggotaNode* head) {
             } else {
                 cout << "  Belum ada iuran.\n";
             }
-            return; // Anggota ditemukan, keluar dari fungsi
+            return; 
         }
         temp = temp->next;
     }
@@ -121,38 +121,38 @@ void insertAnggota(AnggotaNode*& head, string nama, string alamat) {
     cout << "Anggota '" << nama << "' berhasil ditambahkan.\n";
 }
 
-// Fungsi untuk menambahkan iuran anggota
+
 void tambahIuran(AnggotaNode*& head) {
     string nama;
 
     cout << "Masukkan nama anggota: ";
     getline(cin, nama);
 
-    // Cek apakah nama anggota ada
+    
     AnggotaNode* temp = head;
     while (temp) {
         if (temp->nama == nama) {
             if (temp->sudahIuran) {
                 cout << "Anggota '" << nama << "' sudah melakukan iuran.\n";
-                return; // Kembali ke menu utama
+                return; 
             }
 
-            // Input jumlah iuran dengan error handling
+            
             double jumlah;
             cout << "Masukkan jumlah iuran: ";
             while (true) {
                 cin >> jumlah;
                 if (cin.fail() || jumlah <= 0) {
-                    cin.clear(); // Menghapus flag kesalahan
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan input yang tidak valid
+                    cin.clear(); 
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
                     cout << "Input tidak valid. Harap masukkan jumlah iuran yang lebih dari 0: ";
                 } else {
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan sisa input
-                    break; // Keluar dari loop jika input valid
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                    break; 
                 }
             }
 
-            // Set iuran dan tandai anggota sudah melakukan iuran
+            
             temp->jumlahIuran = jumlah;
             temp->sudahIuran = true;
             cout << "Iuran berhasil ditambahkan untuk '" << nama << "' dengan jumlah " << temp->jumlahIuran << ".\n";
@@ -175,11 +175,11 @@ void deleteAnggota(AnggotaNode*& head) {
     while (temp) {
         if (temp->nama == nama) {
             if (prev) {
-                prev->next = temp->next; // Menghubungkan node sebelumnya ke node berikutnya
+                prev->next = temp->next; 
             } else {
-                head = temp->next; // Jika anggota yang dihapus adalah anggota pertama
+                head = temp->next; 
             }
-            delete temp; // Hapus node anggota
+            delete temp; 
             cout << "Anggota '" << nama << "' berhasil dihapus.\n";
             return;
         }
@@ -189,25 +189,22 @@ void deleteAnggota(AnggotaNode*& head) {
     cout << "Anggota dengan nama '" << nama << "' tidak ditemukan.\n";
 }
 
-// Fungsi untuk membebaskan memori yang dialokasikan
 
-// Fungsi untuk meminta input integer dengan error handling
 int getInputInteger() {
     int input;
     while (true) {
         cin >> input;
         if (cin.fail()) {
-            cin.clear(); // Menghapus flag kesalahan
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan input yang tidak valid
+            cin.clear(); 
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
             cout << "Input tidak valid. Harap masukkan angka bulat: ";
         } else {
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Mengabaikan sisa input
-            return input; // Kembalikan input yang valid
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+            return input; 
         }
     }
 }
 
-// Fungsi utama
 int main() {
     AnggotaNode* head = nullptr;
     int pilihan;
@@ -218,10 +215,10 @@ int main() {
         cout << "3. Lihat Data\n";
         cout << "4. Pilih Pemenang\n";
         cout << "5. Cari Anggota\n";
-        cout << "6. Hapus Anggota\n"; // Opsi baru untuk menghapus anggota
+        cout << "6. Hapus Anggota\n"; 
         cout << "7. Keluar\n";
         cout << "Pilih menu: ";
-        pilihan = getInputInteger(); // Menggunakan fungsi untuk mendapatkan input integer
+        pilihan = getInputInteger(); 
 
         if (pilihan == 1) {
             string nama, alamat;
@@ -237,9 +234,9 @@ int main() {
         } else if (pilihan == 4) {
             pilihPemenang(head);
         } else if (pilihan == 5) {
-            findAnggota(head); // Memanggil fungsi findAnggota
+            findAnggota(head); 
         } else if (pilihan == 6) {
-            deleteAnggota(head); // Memanggil fungsi deleteAnggota
+            deleteAnggota(head); 
         } else if (pilihan == 7) {
             cout << "Terima kasih telah menggunakan sistem arisan.\n";
         } else {
@@ -247,7 +244,7 @@ int main() {
         }
     } while (pilihan != 7);
 
-    // Bebaskan memori sebelum keluar
+    
     return 0;
 }
 
