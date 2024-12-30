@@ -1,4 +1,4 @@
-// ARISAN BOY 1.0
+// ARISAN BOY 1.0.1
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -44,11 +44,20 @@ void pilihPemenang(AnggotaNode*& head) {
         return;
     }
 
+    AnggotaNode* temp = head;
+    while (temp) {
+        if (!temp->sudahIuran) {
+            cout << "Semua anggota diharuskan memberikan iuran, tidak dapat memilih pemenang.\n";
+            return;
+        }
+        temp = temp->next;
+    }
+
     srand(time(0));
     int pemenangIndex = rand() % totalAnggota;
-
-    AnggotaNode* temp = head;
+    temp = head;
     AnggotaNode* prev = nullptr;
+
     for (int i = 0; i < pemenangIndex; i++) {
         prev = temp;
         temp = temp->next;
@@ -56,13 +65,12 @@ void pilihPemenang(AnggotaNode*& head) {
 
     cout << "Pemenang arisan adalah: " << temp->nama << " (" << temp->alamat << ")\n";
 
-   
     if (prev) {
-        prev->next = temp->next; 
+        prev->next = temp->next;
     } else {
-        head = temp->next; 
+        head = temp->next;
     }
-    delete temp; 
+    delete temp;
 }
 
 
@@ -128,7 +136,6 @@ void tambahIuran(AnggotaNode*& head) {
     cout << "Masukkan nama anggota: ";
     getline(cin, nama);
 
-    
     AnggotaNode* temp = head;
     while (temp) {
         if (temp->nama == nama) {
@@ -137,22 +144,20 @@ void tambahIuran(AnggotaNode*& head) {
                 return; 
             }
 
-            
             double jumlah;
-            cout << "Masukkan jumlah iuran: ";
+            cout << "Masukkan jumlah iuran (harus 100000): ";
             while (true) {
                 cin >> jumlah;
-                if (cin.fail() || jumlah <= 0) {
+                if (cin.fail() || jumlah != 100000) {
                     cin.clear(); 
                     cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-                    cout << "Input tidak valid. Harap masukkan jumlah iuran yang lebih dari 0: ";
+                    cout << "Input tidak valid. Harap masukkan jumlah iuran yang tepat 100000: ";
                 } else {
                     cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
                     break; 
                 }
             }
 
-            
             temp->jumlahIuran = jumlah;
             temp->sudahIuran = true;
             cout << "Iuran berhasil ditambahkan untuk '" << nama << "' dengan jumlah " << temp->jumlahIuran << ".\n";
